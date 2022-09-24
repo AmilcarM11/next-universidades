@@ -15,6 +15,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import NextLink from 'next/link'
 import { LoremIpsum } from 'react-lorem-ipsum'
+import { getTopUnivesities, getUnivesityProps } from '../../common'
 import { University } from '../../types'
 
 type Props = {
@@ -100,28 +101,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths,
     // Creo que blocking es mejor para SEO, pero hay que confirmarlo
     fallback: true,
-  }
-}
-
-async function getTopUnivesities(): Promise<University[]> {
-  // TODO: consumir EP de universidades más populares.
-  // por el momento se utilizan las primeras de la lista.
-  try {
-    return await fetch(`https://api.wuolah.com/v2/universities`)
-      .then(res => res.json())
-      .then(data => data.data)
-  } catch (error) {
-    console.error('Problema al obtener universidades populares.', error)
-    return []
-  }
-}
-
-async function getUnivesityProps(slug: string) {
-  try {
-    return await fetch(`https://api.wuolah.com/v2/universities/${slug}`).then(res => res.json())
-  } catch (error) {
-    console.error('Problema al obtener props de universidad: ' + slug, error)
-    return null
   }
 }
 
