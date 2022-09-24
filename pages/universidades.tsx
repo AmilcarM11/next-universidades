@@ -1,7 +1,8 @@
-import { University } from '../types'
+import { Box, Flex } from '@chakra-ui/react'
+import { GetServerSideProps } from 'next'
 import ListadoUniversidades from '../components/universidades/ListadoUniversidades'
 import TituloUniversidades from '../components/universidades/TituloUniversidades'
-import { GetServerSideProps } from 'next'
+import { University } from '../types'
 
 type Props = {
   listadoUniversidades: University[]
@@ -9,10 +10,12 @@ type Props = {
 
 export default function Universidades({ listadoUniversidades }: Props) {
   return (
-    <>
-      <TituloUniversidades />
-      <ListadoUniversidades lista={listadoUniversidades} />
-    </>
+    <Flex direction="column" alignItems="center" p={4}>
+      <Box p={8} borderWidth="1px" borderRadius="lg">
+        <TituloUniversidades />
+        <ListadoUniversidades lista={listadoUniversidades} />
+      </Box>
+    </Flex>
   )
 }
 

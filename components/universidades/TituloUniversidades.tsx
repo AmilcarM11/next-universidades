@@ -1,5 +1,7 @@
+import { Heading } from '@chakra-ui/react'
+
 function TituloUniversidades() {
-  return <h1>Listado de Universidades</h1>
+  return <Heading mb={8}>Listado de Universidades</Heading>
 }
 
 export default TituloUniversidades
