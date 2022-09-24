@@ -1,5 +1,5 @@
 function TituloUniversidades() {
-  return <h1>Listado de Univeridades</h1>
+  return <h1>Listado de Universidades</h1>
 }
 
 export default TituloUniversidades
