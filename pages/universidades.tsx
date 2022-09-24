@@ -11,7 +11,7 @@ type Props = {
 export default function Universidades({ listadoUniversidades }: Props) {
   return (
     <Flex direction="column" alignItems="center" p={4}>
-      <Box p={8} borderWidth="1px" borderRadius="lg">
+      <Box p={8} borderWidth="1px" borderRadius="lg" w="lg">
         <TituloUniversidades />
         <ListadoUniversidades lista={listadoUniversidades} />
       </Box>
