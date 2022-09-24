@@ -1,5 +1,16 @@
 import { ArrowBackIcon } from '@chakra-ui/icons'
-import { Badge, Container, Divider, Flex, Heading, HStack, Img, Link } from '@chakra-ui/react'
+import {
+  Badge,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Container,
+  Divider,
+  Flex,
+  Heading,
+  Img,
+  Text,
+} from '@chakra-ui/react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import NextLink from 'next/link'
@@ -31,15 +42,21 @@ function PaginaUniversidad({ data }: Props) {
 
       <Container maxW="container.lg" bg="gray.50" my={8} p={8} borderWidth="1px" borderRadius="lg">
         <header>
-          {/* Volver al listado de Universidades */}
-          <NextLink href="/universidades" passHref>
-            {/* <LinkOverlay> */}
-            <HStack>
-              <ArrowBackIcon></ArrowBackIcon>
-              <Link>Volver</Link>
-            </HStack>
-            {/* </LinkOverlay> */}
-          </NextLink>
+          {/* Breadcrumbs: Volver al listado de Universidades */}
+          <Breadcrumb>
+            <BreadcrumbItem>
+              <NextLink href="/universidades" passHref>
+                <div>
+                  <ArrowBackIcon mr={2}></ArrowBackIcon>
+                  <BreadcrumbLink>Universidades</BreadcrumbLink>
+                </div>
+              </NextLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbItem isCurrentPage>
+              <Text>{data.name}</Text>
+            </BreadcrumbItem>
+          </Breadcrumb>
 
           {/* Encabezado: nombre de la universidad */}
           <Flex alignItems="center" gap={8} mt={2}>
