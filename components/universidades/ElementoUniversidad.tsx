@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { University } from '../../types'
 
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 function ElementoUniversidad({ item }: Props) {
   return (
     <li>
-      <a href={`/universidades/${item.slug}`}>{item.name}</a>
+      <Link href={`/universidades/${item.slug}`}>{item.name}</Link>
     </li>
   )
 }
