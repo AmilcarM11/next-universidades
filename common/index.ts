@@ -2,8 +2,11 @@ import { University } from '../types'
 
 const EP_UNIVERSIDADES = 'https://api.wuolah.com/v2/universities'
 
-export async function getUnivesitiesByPage(page: number): Promise<University[]> {
+export async function getUnivesitiesByPage(
+  page: number,
+): Promise<{ data: University[]; nextPage?: number }> {
   const options = {
+    'pagination[withCount]': 'true',
     'pagination[pageSize]': '20',
     'pagination[page]': String(page),
     sort: 'id', // TODO: sort by name?
@@ -12,20 +15,25 @@ export async function getUnivesitiesByPage(page: number): Promise<University[]> 
   const queryParams = new URLSearchParams(options).toString()
 
   try {
-    const data = await fetch(`${EP_UNIVERSIDADES}?${queryParams}`)
-      .then(res => res.json())
-      .then(d => d.data || [])
-    // TODO: if data.length == 0, stop infiniteScroll requests
-    return data
+    const { data, meta } = await fetch(`${EP_UNIVERSIDADES}?${queryParams}`).then(res => res.json())
+
+    // Determinar si hay más elementos en la página siguiente
+    const { total, page, pageSize } = meta.pagination
+    const hasNext: boolean = total > page * pageSize
+    if (hasNext) {
+      return { data, nextPage: page + 1 }
+    }
+    return { data }
   } catch (error) {
-    return []
+    return { data: [] }
   }
 }
 
 export async function getTopUnivesities(): Promise<University[]> {
   // TODO: consumir EP de universidades más populares.
   // por el momento se utilizan las primeras de la lista.
-  return await getUnivesitiesByPage(0)
+  const { data } = await getUnivesitiesByPage(0)
+  return data
 }
 
 export async function getUnivesityProps(slugUniversidad: string) {
