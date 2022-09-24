@@ -1,6 +1,9 @@
+import { ArrowBackIcon } from '@chakra-ui/icons'
+import { Badge, Container, Divider, Flex, Heading, HStack, Img, Link } from '@chakra-ui/react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
+import NextLink from 'next/link'
+import { LoremIpsum } from 'react-lorem-ipsum'
 import { University } from '../../types'
 
 type Props = {
@@ -26,10 +29,41 @@ function PaginaUniversidad({ data }: Props) {
         />
       </Head>
 
-      <Link href="/universidades">Go Back</Link>
+      <Container maxW="container.lg" bg="gray.50" my={8} p={8} borderWidth="1px" borderRadius="lg">
+        <header>
+          {/* Volver al listado de Universidades */}
+          <NextLink href="/universidades" passHref>
+            {/* <LinkOverlay> */}
+            <HStack>
+              <ArrowBackIcon></ArrowBackIcon>
+              <Link>Volver</Link>
+            </HStack>
+            {/* </LinkOverlay> */}
+          </NextLink>
 
-      <h3>{data.name}</h3>
-      <h4>{data.shortName}</h4>
+          {/* Encabezado: nombre de la universidad */}
+          <Flex alignItems="center" gap={8} mt={2}>
+            <Img src={data.logoUrl} alt={data.shortName} boxSize="120px" objectFit="contain" />
+            <Flex direction="column">
+              <Heading size="xl"> {data.name}</Heading>
+
+              <div>
+                <Badge size="lg">{data.shortName}</Badge>
+              </div>
+            </Flex>
+          </Flex>
+        </header>
+
+        <Divider my={4} />
+
+        {/* Body */}
+        <section>
+          <Heading size="lg" mb={4}>
+            Historia
+          </Heading>
+          <LoremIpsum p={4} random={false} />
+        </section>
+      </Container>
     </>
   )
 }
