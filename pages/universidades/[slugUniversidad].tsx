@@ -16,6 +16,20 @@ const data = { ...defaultProps }
 function PaginaUniversidad() {
   return (
     <>
+      <Head>
+        <title>{data.name}</title>
+        <meta property="og:title" content={data.name} key="title" />
+        <meta property="og:type" content="website" key="type" />
+        <meta property="og:image" content={data.logoUrl} key="image" />
+        <meta
+          property="og:description"
+          content={`Página de la universidad: ` + data.name}
+          key="description"
+        />
+      </Head>
+
+      <meta property="og:title" content="My page title" key="title" />
+
       <Link href="/universidades">Go Back</Link>
 
       <h3>{data.name}</h3>
