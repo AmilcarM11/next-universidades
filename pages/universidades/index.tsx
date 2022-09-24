@@ -1,16 +1,18 @@
 import { useQuery, useInfiniteQuery, QueryFunctionContext } from '@tanstack/react-query'
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex, Spinner } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { getUnivesitiesByPage } from '../../common'
 import ListadoUniversidades from '../../components/universidades/ListadoUniversidades'
 import TituloUniversidades from '../../components/universidades/TituloUniversidades'
 import { University } from '../../types'
+import { useEffect } from 'react'
 
 type Props = {
   listadoUniversidades: University[]
 }
 
 function Universidades({ listadoUniversidades }: Props) {
+  // Configurar infiniteQuery
   const {
     fetchNextPage,
     hasNextPage,
@@ -28,8 +30,25 @@ function Universidades({ listadoUniversidades }: Props) {
     }),
   )
 
-  // TODO: cargar más universidades según el scroll del navegador
-  // he usado el botón como prueba de concepto.
+  // Cargar más universidades según el scroll del navegador
+  useEffect(() => {
+    let fetching = false
+    const onScroll = async (event: any) => {
+      const { scrollHeight, scrollTop, clientHeight } = event.target.scrollingElement
+      // Cuando baje la barra de scroll, cargar la próxima página
+      if (!fetching && scrollHeight - scrollTop <= clientHeight * 1.5) {
+        fetching = true
+        if (hasNextPage) await fetchNextPage()
+        fetching = false
+      }
+    }
+
+    document.addEventListener('scroll', onScroll)
+    return () => {
+      document.removeEventListener('scroll', onScroll)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Flex direction="column" alignItems="center" p={4}>
@@ -38,13 +57,7 @@ function Universidades({ listadoUniversidades }: Props) {
         <ListadoUniversidades lista={lista} />
       </Box>
 
-      <button onClick={() => fetchNextPage()} disabled={!hasNextPage || isFetchingNextPage}>
-        {isFetchingNextPage
-          ? 'Loading more...'
-          : hasNextPage
-          ? 'Load More'
-          : 'Nothing more to load'}
-      </button>
+      {isFetchingNextPage && <Spinner />}
     </Flex>
   )
 }
