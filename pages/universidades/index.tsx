@@ -53,8 +53,16 @@ function Universidades({ listadoUniversidades }: Props) {
   }, [])
 
   return (
-    <Flex direction="column" alignItems="center" p={4}>
-      <Box p={8} borderWidth="1px" borderRadius="lg" w="lg">
+    <Flex direction="column" alignItems="center" p={8}>
+      <Box
+        py={8}
+        px={[4, 4, 8]}
+        borderWidth="1px"
+        borderRadius="lg"
+        w={['24em', '32em', '40em']}
+        backgroundColor="white"
+        boxShadow="xl"
+      >
         <TituloUniversidades />
         <RadioGroup value={sortBy} name="sortBy" onChange={setSortBy}>
           <Stack spacing={5} direction="row">

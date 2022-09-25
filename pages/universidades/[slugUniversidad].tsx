@@ -22,8 +22,6 @@ type Props = {
   data: University
 }
 
-// TODO: crear componente visualmente agradable.
-
 function PaginaUniversidad({ data }: Props) {
   if (!data) return <h1>No data found</h1>
 
@@ -41,7 +39,17 @@ function PaginaUniversidad({ data }: Props) {
         />
       </Head>
 
-      <Container maxW="container.lg" bg="gray.50" my={8} p={8} borderWidth="1px" borderRadius="lg">
+      <Container
+        maxW="container.lg"
+        bg="blue.50"
+        width="auto"
+        my={8}
+        mx={[2, 4, 8, 'auto']}
+        p={8}
+        borderWidth="1px"
+        borderRadius="lg"
+        boxShadow="lg"
+      >
         <header>
           {/* Breadcrumbs: Volver al listado de Universidades */}
           <Breadcrumb>
@@ -61,9 +69,14 @@ function PaginaUniversidad({ data }: Props) {
 
           {/* Encabezado: nombre de la universidad */}
           <Flex alignItems="center" gap={8} mt={2}>
-            <Img src={data.logoUrl} alt={data.shortName} boxSize="120px" objectFit="contain" />
+            <Img
+              src={data.logoUrl}
+              alt={data.shortName}
+              boxSize={['4em', '6em', '8em']}
+              objectFit="contain"
+            />
             <Flex direction="column">
-              <Heading size="xl"> {data.name}</Heading>
+              <Heading size={['md', 'lg', 'xl']}> {data.name}</Heading>
 
               <div>
                 <Badge size="lg">{data.shortName}</Badge>
@@ -76,7 +89,7 @@ function PaginaUniversidad({ data }: Props) {
 
         {/* Body */}
         <section>
-          <Heading size="lg" mb={4}>
+          <Heading size={['sm', 'md', 'lg']} mb={4}>
             Historia
           </Heading>
           <LoremIpsum p={4} random={false} />

@@ -9,23 +9,30 @@ type Props = {
 function ElementoUniversidad({ item }: Props) {
   return (
     <Box
-      maxW="lg"
+      w={['22em', '30em', '36em']}
       borderWidth="1px"
       borderRadius="md"
       my={3}
       p={2}
+      backgroundColor="blue.50"
+      boxShadow="sm"
       _hover={{
         fontWeight: 'semibold',
-        background: '#eeeeee',
+        background: 'blue.100',
         cursor: 'pointer',
       }}
     >
       <NextLink href={`/universidades/${item.slug}`} passHref>
         <Flex alignItems="center" gap={6}>
-          <Img src={item.logoUrl} alt={item.shortName} boxSize="60px" objectFit="contain" />
+          <Img
+            src={item.logoUrl}
+            alt={item.shortName}
+            boxSize={['4em', '5em', '6em']}
+            objectFit="contain"
+          />
           <Stack direction="column">
             <Link>
-              <Text fontSize="lg"> {item.name}</Text>
+              <Text fontSize={['md', 'lg', 'xl']}> {item.name}</Text>
             </Link>
             <Box>
               <Badge>{item.shortName}</Badge>
