@@ -1,4 +1,4 @@
-import { useQuery, useInfiniteQuery, QueryFunctionContext } from '@tanstack/react-query'
+import { useInfiniteQuery, QueryFunctionContext } from '@tanstack/react-query'
 import { Box, Flex, Spinner } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { getUnivesitiesByPage } from '../../common'
@@ -13,15 +13,14 @@ type Props = {
 
 function Universidades({ listadoUniversidades }: Props) {
   // Configurar infiniteQuery
-  const {
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage, // TODO: mostrar loading.
-    data,
-  } = useInfiniteQuery(['universidades'], getUniversities, {
-    getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
-    initialData: { pages: [{ response: listadoUniversidades, nextPage: 1 }], pageParams: [0] },
-  })
+  const { fetchNextPage, hasNextPage, isFetchingNextPage, data } = useInfiniteQuery(
+    ['universidades'],
+    getUniversities,
+    {
+      getNextPageParam: (lastPage, allPages) => lastPage.nextPage,
+      initialData: { pages: [{ response: listadoUniversidades, nextPage: 1 }], pageParams: [0] },
+    },
+  )
 
   const lista: University[] = []
   data?.pages.forEach(page =>
