@@ -4,12 +4,13 @@ const EP_UNIVERSIDADES = 'https://api.wuolah.com/v2/universities'
 
 export async function getUnivesitiesByPage(
   page: number,
+  sortBy: string = 'id',
 ): Promise<{ data: University[]; nextPage?: number }> {
   const options = {
     'pagination[withCount]': 'true',
     'pagination[pageSize]': '20',
     'pagination[page]': String(page),
-    sort: 'id', // TODO: sort by name?
+    sort: sortBy,
   }
 
   const queryParams = new URLSearchParams(options).toString()
