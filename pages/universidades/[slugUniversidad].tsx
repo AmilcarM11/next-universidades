@@ -90,7 +90,11 @@ function PaginaUniversidad({ data }: Props) {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const data = await getUnivesityProps(params?.slugUniversidad as string)
 
-  return { props: { data } }
+  return {
+    props: { data },
+    // Revalidar props cada 10 mins, por si cambia la información en la API.
+    revalidate: 10 * 60,
+  }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
