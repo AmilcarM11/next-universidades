@@ -15,7 +15,7 @@ function Universidades({ listadoUniversidades }: Props) {
   // Ordenar universidades por id o por nombre
   const [sortBy, setSortBy] = useState('id')
 
-  // Configurar infiniteQuery
+  // Configurar infiniteQuery para obtener universidades con paginación.
   const { fetchNextPage, hasNextPage, isFetchingNextPage, data } = useInfiniteQuery(
     ['universidades', sortBy],
     pageParams => getUniversities(pageParams, sortBy),
